@@ -39,7 +39,33 @@
           }
         }
       },
-      "post": {}
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
     },
     "/products/{product_id}": {
       "get": {},
@@ -53,7 +79,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "example": 1
+            "example": 1,
+            "readOnly": true
           },
           "name": {
             "type": "string",
@@ -73,11 +100,13 @@
           },
           "rating": {
             "type": "number",
-            "example": 4.5
+            "example": 4.5,
+            "readOnly": true
           },
           "product_date": {
             "type": "string",
-            "example": "2020-01-01"
+            "example": "2020-01-01",
+            "readOnly": true
           }
         }
       }
