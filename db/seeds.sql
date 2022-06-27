@@ -1,13 +1,22 @@
 \c product_db;
 
+SET CLIENT_ENCODING TO 'utf8';
+
 BEGIN;
 
-INSERT INTO products (name, description, price, stock, product_date)
+INSERT INTO categories (name, icon)
+VALUES
+  ('Electronics', '💻'),
+  ('Toys', '🎲'),
+  ('Household', '🏠');
+
+INSERT INTO products (name, description, price, quantity, category_id, product_date)
 SELECT 
   CONCAT('Product #', p_id), 
   CONCAT('Description for Product #', p_id),
   random_between(1, 9000) * RANDOM(),
   random_between(1, 100),
+  random_between(1, 3), 
   NOW() - ('1 month'::INTERVAL*random_between(1, 100))
 FROM generate_series(1, 100) AS p_id;
 
