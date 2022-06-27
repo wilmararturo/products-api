@@ -126,7 +126,15 @@
     },
     "/products": {
       "get": {
+        "tags": ["products"],
         "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "integer"
+            }
+          },
           {
             "in": "query",
             "name": "sort",
@@ -153,6 +161,7 @@
         }
       },
       "post": {
+        "tags": ["products"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -192,6 +201,7 @@
         }
       ],
       "get": {
+        "tags": ["products"],
         "responses": {
           "200": {
             "description": "OK",
@@ -209,6 +219,7 @@
         }
       },
       "put": {
+        "tags": ["products"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -232,9 +243,39 @@
         }
       },
       "delete": {
+        "tags": ["products"],
         "responses": {
           "204": {
             "description": "Deleted successfully"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["products"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "quantity": {
+                    "type": "integer",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
           },
           "404": {
             "description": "Not found"
@@ -254,6 +295,7 @@
         }
       ],
       "get": {
+        "tags": ["products", "reviews"],
         "parameters": [
           {
             "in": "query",
@@ -284,6 +326,7 @@
         }
       },
       "post": {
+        "tags": ["products", "reviews"],
         "requestBody": {
           "content": {
             "application/json": {
