@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const redis = require("../../../config/redis");
 const { Product, Review } = require("../../../models");
 
 router.get("/", async (req, res) => {
@@ -28,6 +29,7 @@ router.get("/", async (req, res) => {
       link += `<${url.href}>; rel="next"`;
     }
 
+    await redis.set(req.originalUrl, JSON.stringify(rows), { EX: 300 });
     res.set("Link", link).status(200).json(rows);
   } catch (err) {
     console.error(err);
@@ -130,7 +132,7 @@ router.get("/:id/reviews", async (req, res) => {
       url.searchParams.set("page", page + 1);
       link += `<${url.href}>; rel="next"`;
     }
-
+    await redis.set(req.originalUrl, JSON.stringify(rows), { EX: 300 });
     res.set("Link", link).status(200).json(rows);
   } catch (err) {
     console.error(err);
