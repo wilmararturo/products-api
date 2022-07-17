@@ -13,6 +13,18 @@ client.on("connect", () => {
 });
 
 module.exports = {
-  get: client.get,
-  set: client.set,
+  get: (key) => {
+    client.get(key, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
+  set: (key, value) => {
+    client.set(key, value, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  },
 };
